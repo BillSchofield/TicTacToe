@@ -1,31 +1,29 @@
 package org.bill.tictactoe;
 
 
-import java.util.List;
-import java.util.Random;
+import static org.bill.tictactoe.Mark.O;
+import static org.bill.tictactoe.Mark.X;
 
-import static org.bill.tictactoe.Cell.CellState;
-import static org.bill.tictactoe.Cell.CellState.O;
-import static org.bill.tictactoe.Cell.CellState.X;
 
 public class Main {
 
     public static void main(String[] args) {
-        Random rng = new Random();
         Board board = new Board();
-        X.otherPlayer(O);
-        O.otherPlayer(X);
+        Triples triples = new Triples(board);
+        Player x = new Player(X, new AiStrategy(board, triples));
+        Player o = new Player(O, new RandomStrategy(board));
+        x.otherPlayer(o);
+        o.otherPlayer(x);
 
-        CellState currentPlayer = X;
-        while (!board.won() && board.emptyCells().size() > 0){
-            List<Cell> emptyCells = board.emptyCells();
-            emptyCells.get(rng.nextInt(emptyCells.size())).setState(currentPlayer);
+        Player currentPlayer = o;
+        while (!gameWon(board, triples)){
             currentPlayer = currentPlayer.otherPlayer();
-            print(board);
+            currentPlayer.move();
+            board.print();
         }
     }
 
-    private static void print(Board board) {
-        System.out.println(board);
+    private static boolean gameWon(Board board, Triples triples) {
+        return triples.won() && board.emptyCells().size() > 0;
     }
 }
