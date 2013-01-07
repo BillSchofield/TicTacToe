@@ -1,12 +1,14 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.board;
 
 import com.google.common.base.Predicate;
+import org.bill.tictactoe.player.Player;
 
 import java.util.List;
 
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.bill.tictactoe.Lists2.filter;
+import static org.bill.tictactoe.player.Player.NO_ONE;
 
 public class CellTuple {
     private final List<Cell> cells;
@@ -15,27 +17,27 @@ public class CellTuple {
         this.cells = newArrayList(cells);
     }
 
-    public boolean isAll(final Mark mark) {
-        return cellsWithMark(mark) == 3;
+    public boolean isAll(Player player) {
+        return cellsMarkedBy(player) == 3;
     }
 
-    private int cellsWithMark(final Mark mark) {
+    private int cellsMarkedBy(final Player player) {
         List<Cell> cellsInDesiredState = filter(cells, new Predicate<Cell>() {
             public boolean apply(Cell cell) {
-                return cell.is(mark);
+                return cell.isMarkedBy(player);
             }
         });
         return cellsInDesiredState.size();
     }
 
-    public boolean hasEmptyCellAndTwo(Mark mark) {
-        return cellsWithMark(mark) == 2 && cellsWithMark(Mark.EMPTY) == 1;
+    public boolean hasEmptyCellAndTwo(Player player) {
+        return cellsMarkedBy(player) == 2 && cellsMarkedBy(NO_ONE) == 1;
     }
 
     public Cell emptyCell() {
         return find(cells, new Predicate<Cell>() {
             public boolean apply(Cell cell) {
-                return cell.is(Mark.EMPTY);
+                return cell.isMarkedBy(NO_ONE);
             }
         });
     }

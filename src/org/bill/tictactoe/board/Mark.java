@@ -1,4 +1,4 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.board;
 
 public enum Mark {
     EMPTY(" "), X("X"), O("O");

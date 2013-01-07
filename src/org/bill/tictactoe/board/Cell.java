@@ -1,4 +1,6 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.board;
+
+import org.bill.tictactoe.player.Player;
 
 public class Cell {
     private int index;
@@ -11,11 +13,11 @@ public class Cell {
         this.state = state;
     }
 
-    public boolean is(Mark state) {
-        return this.state.equals(state);
+    public boolean isMarkedBy(Player player) {
+        return player.hasMark(this.state);
     }
 
-    public void setState(Mark state) {
+    public void make(Mark state) {
         this.state = state;
     }
 

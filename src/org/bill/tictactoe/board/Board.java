@@ -1,12 +1,12 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.board;
 
 import com.google.common.base.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bill.tictactoe.Mark.*;
 import static org.bill.tictactoe.Lists2.filter;
+import static org.bill.tictactoe.player.Player.NO_ONE;
 
 public class Board {
 
@@ -14,7 +14,7 @@ public class Board {
 
     public Board() {
         for (int i=0;i<9;i++){
-            cells.add(new Cell(i, EMPTY));
+            cells.add(new Cell(i, Mark.EMPTY));
         }
     }
 
@@ -50,7 +50,7 @@ public class Board {
 
     private static class IsCellEmpty implements Predicate<Cell> {
         public boolean apply(Cell cell) {
-            return cell.is(Mark.EMPTY);
+            return cell.isMarkedBy(NO_ONE);
         }
     }
 }

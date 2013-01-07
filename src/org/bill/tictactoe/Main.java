@@ -1,8 +1,14 @@
 package org.bill.tictactoe;
 
 
-import static org.bill.tictactoe.Mark.O;
-import static org.bill.tictactoe.Mark.X;
+import org.bill.tictactoe.board.Board;
+import org.bill.tictactoe.board.Triples;
+import org.bill.tictactoe.player.AiStrategy;
+import org.bill.tictactoe.player.Player;
+import org.bill.tictactoe.player.RandomStrategy;
+
+import static org.bill.tictactoe.board.Mark.O;
+import static org.bill.tictactoe.board.Mark.X;
 
 
 public class Main {
@@ -16,14 +22,11 @@ public class Main {
         o.otherPlayer(x);
 
         Player currentPlayer = o;
-        while (!gameWon(board, triples)){
+        while (!triples.gameOver(currentPlayer)){
             currentPlayer = currentPlayer.otherPlayer();
             currentPlayer.move();
             board.print();
         }
     }
 
-    private static boolean gameWon(Board board, Triples triples) {
-        return triples.won() && board.emptyCells().size() > 0;
-    }
 }

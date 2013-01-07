@@ -1,12 +1,11 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.player;
 
-import com.google.common.base.Nullable;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
+import org.bill.tictactoe.board.Board;
+import org.bill.tictactoe.board.Triples;
+import org.bill.tictactoe.moves.*;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.collect.Iterables.find;
@@ -20,28 +19,28 @@ public class AiStrategy extends Strategy {
         this.triples = triples;
         moves = new ImmutableList.Builder<Move>()
                 .add(new ThreeInARowMove(triples))
-                .add(new BlockMove())
+                .add(new BlockMove(board, triples))
                 .add(new ForkMove())
                 .add(new BlockForkMove())
-                .add(new PlayCenterMove())
+                .add(new PlayCenterMove(board))
                 .add(new PlayOppositeCornerMove())
-                .add(new RandomMove())
+                .add(new RandomMove(board))
                 .build();
     }
 
-    public void go(final Mark mark) {
-        find(moves, new MoveThatCanGo(mark)).go(board, mark);
+    public void go(final Player player) {
+        find(moves, new MoveThatCanGo(player)).go(player);
     }
 
     private static class MoveThatCanGo implements Predicate<Move> {
-        private final Mark mark;
+        private final Player player;
 
-        public MoveThatCanGo(Mark mark) {
-            this.mark = mark;
+        public MoveThatCanGo(Player player) {
+            this.player = player;
         }
 
         public boolean apply(Move move) {
-            return move.canGo(mark);
+            return move.canGo(player);
         }
     }
 }

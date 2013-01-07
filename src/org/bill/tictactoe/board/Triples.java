@@ -1,13 +1,12 @@
-package org.bill.tictactoe;
+package org.bill.tictactoe.board;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
+import org.bill.tictactoe.player.Player;
 
 import java.util.List;
 
 import static org.bill.tictactoe.Lists2.filter;
-import static org.bill.tictactoe.Mark.O;
-import static org.bill.tictactoe.Mark.X;
 
 public class Triples {
     private Board board;
@@ -27,12 +26,13 @@ public class Triples {
                     .build();
 
     }
-    public boolean won() {
-        return checkForWinByPlayer(X) || checkForWinByPlayer(O);
+
+    public boolean won(Player player) {
+        return checkForWinBy(player);
     }
 
-    private boolean checkForWinByPlayer(Mark mark) {
-        return has(new IsThreeInARow(mark));
+    private boolean checkForWinBy(Player player) {
+        return has(new IsThreeInARow(player));
     }
 
     private CellTuple cells(int i, int j, int k) {
@@ -48,10 +48,14 @@ public class Triples {
         return winningCells.get(0).emptyCell();
     }
 
-    private static class IsThreeInARow implements Predicate<CellTuple> {
-        private final Mark player;
+    public boolean gameOver(Player player) {
+        return won(player) || board.emptyCells().size() == 0;
+    }
 
-        public IsThreeInARow(Mark player) {
+    private static class IsThreeInARow implements Predicate<CellTuple> {
+        private final Player player;
+
+        public IsThreeInARow(Player player) {
             this.player = player;
         }
 
@@ -61,14 +65,14 @@ public class Triples {
     }
 
     public static class AvailableThreeInARow implements Predicate<CellTuple> {
-        private final Mark mark;
+        private final Player player;
 
-        public AvailableThreeInARow(Mark mark) {
-            this.mark = mark;
+        public AvailableThreeInARow(Player player) {
+            this.player = player;
         }
 
         public boolean apply(CellTuple cellTuple) {
-            return cellTuple.hasEmptyCellAndTwo(mark);
+            return cellTuple.hasEmptyCellAndTwo(player);
         }
     }
 
