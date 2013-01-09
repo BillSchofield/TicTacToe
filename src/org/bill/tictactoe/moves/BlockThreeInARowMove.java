@@ -15,10 +15,10 @@ public class BlockThreeInARowMove implements Move {
     }
 
     public Cell go(Player player) {
-        return triples.getCellWith(new AvailableThreeInARow(player.otherPlayer()));
+        return triples.getCellWith(new AvailableThreeInARow(player.opponent()));
     }
 
     public boolean canGo(Player player) {
-        return triples.has(new AvailableThreeInARow(player.otherPlayer()));
+        return triples.has(new AvailableThreeInARow(player.opponent()));
     }
 }

@@ -21,7 +21,7 @@ public class AiStrategy implements Strategy {
                 .add(new ForkMove(board, triples))
                 .add(new BlockForkMove(new ForkMove(board, triples)))
                 .add(new EmptyCellMove(board.center()))
-                .add(new PlayOppositeCornerMove())
+                .add(new PlayOppositeCornerMove(triples))
                 .add(new EmptyCellMove(board.corners()))
                 .add(new EmptyCellMove(board.sides()))
                 .build();

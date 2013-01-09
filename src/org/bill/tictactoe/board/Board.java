@@ -1,11 +1,12 @@
 package org.bill.tictactoe.board;
 
+import org.bill.tictactoe.Predicates;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.bill.tictactoe.Lists2.filter;
-import static org.bill.tictactoe.Predicates.IsCellEmpty;
 
 public class Board {
 
@@ -43,7 +44,7 @@ public class Board {
     }
 
     public List<Cell> emptyCells() {
-        return filter(cells, new IsCellEmpty());
+        return filter(cells, new Predicates.ThatAreEmpty());
     }
 
     public void print() {

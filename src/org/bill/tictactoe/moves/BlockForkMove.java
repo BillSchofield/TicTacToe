@@ -11,10 +11,10 @@ public class BlockForkMove implements Move {
     }
 
     public Cell go(Player player) {
-        return forkMove.go(player.otherPlayer());
+        return forkMove.go(player.opponent());
     }
 
     public boolean canGo(Player player) {
-        return forkMove.canGo(player.otherPlayer());
+        return forkMove.canGo(player.opponent());
     }
 }

@@ -24,7 +24,7 @@ public class Game {
 
     public void play() {
         while (!triples.gameOver(currentPlayer)){
-            currentPlayer = currentPlayer.otherPlayer();
+            currentPlayer = currentPlayer.opponent();
             currentPlayer.move();
             board.print();
         }

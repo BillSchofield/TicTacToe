@@ -10,7 +10,7 @@ import org.bill.tictactoe.player.Player;
 import static org.bill.tictactoe.player.Player.NO_ONE;
 
 public class Predicates {
-    public static class IsCellEmpty implements Predicate<Cell>{
+    public static class ThatAreEmpty implements Predicate<Cell>{
         public boolean apply(Cell cell) {
             return cell.isMarkedBy(NO_ONE);
         }
@@ -89,4 +89,16 @@ public class Predicates {
             return move.canGo(player);
         }
     }
+    public static class BelongingTo implements Predicate<Cell> {
+        private final Player player;
+
+        public BelongingTo(Player player) {
+            this.player = player;
+        }
+
+        public boolean apply(Cell cell) {
+            return cell.isMarkedBy(player);
+        }
+    }
+
 }

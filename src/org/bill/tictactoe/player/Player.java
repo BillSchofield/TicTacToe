@@ -13,7 +13,7 @@ public class Player {
         this.strategy = strategy;
     }
 
-    public Player otherPlayer() {
+    public Player opponent() {
         return this.otherPlayer;
     }
 
