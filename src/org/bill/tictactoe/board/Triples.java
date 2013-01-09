@@ -7,6 +7,8 @@ import org.bill.tictactoe.player.Player;
 import java.util.List;
 
 import static org.bill.tictactoe.Lists2.filter;
+import static org.bill.tictactoe.Predicates.Contains;
+import static org.bill.tictactoe.Predicates.IsThreeInARow;
 
 public class Triples {
     private Board board;
@@ -28,10 +30,6 @@ public class Triples {
     }
 
     public boolean won(Player player) {
-        return checkForWinBy(player);
-    }
-
-    private boolean checkForWinBy(Player player) {
         return has(new IsThreeInARow(player));
     }
 
@@ -43,6 +41,11 @@ public class Triples {
         return !filter(triples, predicate).isEmpty();
     }
 
+    public boolean hasAtLeastTwoContainingCell(final Cell cell, Predicate<CellTuple> predicate) {
+        List<CellTuple> triplesContainingCell = filter(triples, new Contains(cell));
+        return filter(triplesContainingCell, predicate).size() > 1;
+    }
+
     public Cell getCellWith(Predicate<CellTuple> predicate) {
         List<CellTuple> winningCells = filter(triples, predicate);
         return winningCells.get(0).emptyCell();
@@ -51,29 +54,4 @@ public class Triples {
     public boolean gameOver(Player player) {
         return won(player) || board.emptyCells().size() == 0;
     }
-
-    private static class IsThreeInARow implements Predicate<CellTuple> {
-        private final Player player;
-
-        public IsThreeInARow(Player player) {
-            this.player = player;
-        }
-
-        public boolean apply(CellTuple cellTuple) {
-            return cellTuple.isAll(player);
-        }
-    }
-
-    public static class AvailableThreeInARow implements Predicate<CellTuple> {
-        private final Player player;
-
-        public AvailableThreeInARow(Player player) {
-            this.player = player;
-        }
-
-        public boolean apply(CellTuple cellTuple) {
-            return cellTuple.hasEmptyCellAndTwo(player);
-        }
-    }
-
 }

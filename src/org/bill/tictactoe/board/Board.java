@@ -1,21 +1,27 @@
 package org.bill.tictactoe.board;
 
-import com.google.common.base.Predicate;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.bill.tictactoe.Lists2.filter;
-import static org.bill.tictactoe.player.Player.NO_ONE;
+import static org.bill.tictactoe.Predicates.IsCellEmpty;
 
 public class Board {
+
+    private Cell center;
+    private Cell[] corners = new Cell[4];
+    private Cell[] sides = new Cell[4];
 
     private final List<Cell> cells = new ArrayList<Cell>();
 
     public Board() {
         for (int i=0;i<9;i++){
-            cells.add(new Cell(i, Mark.EMPTY));
+            cells.add(new Cell(Mark.EMPTY));
         }
+        center = cells.get(4);
+        newArrayList(cells.get(0), cells.get(2), cells.get(6), cells.get(8)).toArray(corners);
+        newArrayList(cells.get(1), cells.get(3), cells.get(5), cells.get(7)).toArray(sides);
     }
 
     public String toString(){
@@ -33,7 +39,7 @@ public class Board {
     }
 
     private String row(int row) {
-        return cells.get(row*3 + 0) + "|" + cells.get(row*3 + 1)+"|"+ cells.get(row*3 + 2) + "\n";
+        return cells.get(row*3) + "|" + cells.get(row*3 + 1)+"|"+ cells.get(row*3 + 2) + "\n";
     }
 
     public List<Cell> emptyCells() {
@@ -48,9 +54,15 @@ public class Board {
         return cells.get(i);
     }
 
-    private static class IsCellEmpty implements Predicate<Cell> {
-        public boolean apply(Cell cell) {
-            return cell.isMarkedBy(NO_ONE);
-        }
+    public Cell center() {
+        return center;
+    }
+
+    public Cell[] corners() {
+        return corners;
+    }
+
+    public Cell[] sides() {
+        return sides;
     }
 }

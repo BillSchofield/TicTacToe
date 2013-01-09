@@ -1,13 +1,7 @@
 package org.bill.tictactoe.player;
 
-import org.bill.tictactoe.board.Board;
+import org.bill.tictactoe.board.Cell;
 
-public abstract class Strategy {
-    protected Board board;
-
-    public Strategy(Board board) {
-        this.board = board;
-    }
-
-    public abstract void go(Player player);
+public interface Strategy {
+    public Cell findMove(Player player);
 }

@@ -3,7 +3,6 @@ package org.bill.tictactoe.board;
 public enum Mark {
     EMPTY(" "), X("X"), O("O");
     private String string;
-    private Mark otherPlayer;
 
     private Mark(String string) {
         this.string = string;

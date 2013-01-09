@@ -1,17 +1,17 @@
 package org.bill.tictactoe.player;
 
 import org.bill.tictactoe.board.Board;
+import org.bill.tictactoe.board.Cell;
 import org.bill.tictactoe.moves.RandomMove;
 
-public class RandomStrategy extends Strategy {
+public class RandomStrategy implements Strategy {
     RandomMove move;
 
     public RandomStrategy(Board board) {
-        super(board);
         move = new RandomMove(board);
     }
 
-    public void go(Player player) {
-        move.go(player);
+    public Cell findMove(Player player) {
+        return move.go(player);
     }
 }

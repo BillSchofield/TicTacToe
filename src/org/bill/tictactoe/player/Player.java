@@ -1,6 +1,5 @@
 package org.bill.tictactoe.player;
 
-import org.bill.tictactoe.board.Cell;
 import org.bill.tictactoe.board.Mark;
 
 public class Player {
@@ -23,11 +22,7 @@ public class Player {
     }
 
     public void move() {
-        strategy.go(this);
-    }
-
-    public void makeMarkIn(Cell cell) {
-        cell.make(mark);
+        strategy.findMove(this).make(mark);
     }
 
     public boolean hasMark(Mark mark) {

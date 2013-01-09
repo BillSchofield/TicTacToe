@@ -8,6 +8,7 @@ import java.util.List;
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.bill.tictactoe.Lists2.filter;
+import static org.bill.tictactoe.Predicates.IsCellEmpty;
 import static org.bill.tictactoe.player.Player.NO_ONE;
 
 public class CellTuple {
@@ -34,11 +35,15 @@ public class CellTuple {
         return cellsMarkedBy(player) == 2 && cellsMarkedBy(NO_ONE) == 1;
     }
 
+    public boolean hasTwoEmptyCellsAnd(Player player) {
+        return cellsMarkedBy(player) == 1 && cellsMarkedBy(NO_ONE) == 2;
+    }
+
     public Cell emptyCell() {
-        return find(cells, new Predicate<Cell>() {
-            public boolean apply(Cell cell) {
-                return cell.isMarkedBy(NO_ONE);
-            }
-        });
+        return find(cells, new IsCellEmpty());
+    }
+
+    public boolean contains(Cell cell) {
+        return cells.contains(cell);
     }
 }

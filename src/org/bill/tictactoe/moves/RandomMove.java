@@ -14,9 +14,9 @@ public class RandomMove implements Move {
 
     private Board board;
 
-    public void go(Player player) {
+    public Cell go(Player player) {
         List<Cell> emptyCells = board.emptyCells();
-        player.makeMarkIn(emptyCells.get(new Random().nextInt(emptyCells.size())));
+        return emptyCells.get(new Random().nextInt(emptyCells.size()));
     }
 
     public boolean canGo(Player player) {
