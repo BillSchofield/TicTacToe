@@ -18,8 +18,8 @@ public class Game {
     private Player currentPlayer = o;
 
     public Game(){
-        x.otherPlayer(o);
-        o.otherPlayer(x);
+        x.opponent(o);
+        o.opponent(x);
     }
 
     public void play() {

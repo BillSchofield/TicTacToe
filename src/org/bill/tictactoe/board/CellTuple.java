@@ -23,19 +23,19 @@ public class CellTuple {
     }
 
     public boolean isAll(Player player) {
-        return cellsMarkedBy(player) == 3;
+        return cellsOwnedBy(player) == 3;
     }
 
-    private int cellsMarkedBy(final Player player) {
+    private int cellsOwnedBy(final Player player) {
         return filter(cells, new BelongingTo(player)).size();
     }
 
     public boolean hasEmptyCellAndTwo(Player player) {
-        return cellsMarkedBy(player) == 2 && cellsMarkedBy(NO_ONE) == 1;
+        return cellsOwnedBy(player) == 2 && cellsOwnedBy(NO_ONE) == 1;
     }
 
     public boolean hasTwoEmptyCellsAnd(Player player) {
-        return cellsMarkedBy(player) == 1 && cellsMarkedBy(NO_ONE) == 2;
+        return cellsOwnedBy(player) == 1 && cellsOwnedBy(NO_ONE) == 2;
     }
 
     public Cell emptyCell() {

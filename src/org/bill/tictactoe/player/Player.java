@@ -17,7 +17,7 @@ public class Player {
         return this.otherPlayer;
     }
 
-    public void otherPlayer(Player otherPlayer) {
+    public void opponent(Player otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 

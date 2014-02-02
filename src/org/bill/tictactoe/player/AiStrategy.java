@@ -12,10 +12,10 @@ import static com.google.common.collect.Iterables.find;
 import static org.bill.tictactoe.Predicates.MoveThatCanGo;
 
 public class AiStrategy implements Strategy {
-    private final List<Move> moves;
+    private final List<Move> movesBestToWorst;
 
     public AiStrategy(Board board, Triples triples) {
-        moves = new ImmutableList.Builder<Move>()
+        movesBestToWorst = new ImmutableList.Builder<Move>()
                 .add(new ThreeInARowMove(triples))
                 .add(new BlockThreeInARowMove(triples))
                 .add(new ForkMove(board, triples))
@@ -28,6 +28,6 @@ public class AiStrategy implements Strategy {
     }
 
     public Cell findMove(final Player player) {
-        return find(moves, new MoveThatCanGo(player)).go(player);
+        return find(movesBestToWorst, new MoveThatCanGo(player)).go(player);
     }
 }
